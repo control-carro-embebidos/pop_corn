@@ -45,7 +45,7 @@ class Scene:
 
         for disc in self.discs:
             f_mag=self.magnetic(disc)
-            disc.add_force(f_mag) #Magnetic Force floor
+            #disc.add_force(f_mag) #Magnetic Force floor
             
             #Parent attractor
 

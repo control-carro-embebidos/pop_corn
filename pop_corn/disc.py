@@ -28,22 +28,7 @@ class Disc(Scene):
         self.control=self.default_control
         self.things={}
         r=self.r
-        self.poligons=[]#Matrix(8,2,[
-#                               r,0,
-#                               .7*r,.7*r,
-#                               0,r,
-#                               -.7*r,.7*r,
-#                               -r,0,
-#                               -.7*r,-.7*r,
-#                               0,-r,
-#                               .7*r,-.7*r,
-#                               
-#                               ])]
-        #self.parent={
-        #    'parent':scene,
-        #    'force':scene.magnetic
-        #}
-    
+        self.poligons=[]
 
     def get_angle(self):
         return self._angle

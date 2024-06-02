@@ -14,7 +14,7 @@ class MainScene(Scene):
         self._bg={
             'xy0':(-200,-200),
             'xy1':(200,200),
-            'data_grayscale':Matrix(20,10),
+            'data_grayscale':None, #Matrix(20,10),
             'gray':255,
             'transf':None#self.get_bg_transf()
         }|props
@@ -34,24 +34,37 @@ class MainScene(Scene):
         
     def fun_bg(self,xy):
         m_data=self._bg['data_grayscale']
-        if self._bg['transf'] == None:
-            self._bg['transf'] = self.get_bg_transf()
-        ij = xy @ (self._bg['transf'])
-        list_grays=[]
-        for rengl in range(ij.m):
-            
-            i,j = int(ij[rengl,0]), int(ij[rengl,1])
-            if 0<i<m_data.m and 0<j<m_data.n: 
-                list_grays.append( m_data[i,j])
-            else:
-                list_grays.append( self._bg['gray'])
-        return list_grays
+        if m_data:
+            if self._bg['transf'] == None:
+                self._bg['transf'] = self.get_bg_transf()
+            ij = xy @ (self._bg['transf'])
+            list_grays=[]
+            for rengl in range(ij.m):
+                
+                i,j = int(ij[rengl,0]), int(ij[rengl,1])
+                if 0<i<m_data.m and 0<j<m_data.n: 
+                    list_grays.append( m_data[i,j])
+                else:
+                    list_grays.append( self._bg['gray'])
+            return list_grays
+        else:
+            return [self._bg['gray']]*xy.m
 
 
     def subscribe_canvas(self, canvas):
         if canvas not in self.subscribers_canvas:
             self.subscribers_canvas.append(canvas)
 
+    @staticmethod
+    def magnetic(disc):
+            dx=(disc.get_pos()[0]%disc.d_magne)-disc.d_magne/2
+            dy=(disc.get_pos()[1]%disc.d_magne)-disc.d_magne/2
+            dif=Vec(dx,dy)#Matrix(1,3,[dx,dy,1])
+            dist=dif.norm()
+            if dist==0:
+                dist=disc.d_magne/1000
+            f_mag=(disc.k_magne/dist**3)*dif
+            return f_mag
 
 
     def forces(self):
