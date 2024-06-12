@@ -3,12 +3,11 @@ The objective of this repository is to create modules for MicroPython using Obje
 
 The following files contain applications that you can execute after downloading or cloning the entire project
 * billar_micropython.py                             
-* billar_tkinter.py                                 
-* dir.txt                                           
+* billar_tkinter.py                                                                          
 * line_follower_tkinter.py                                             
 * line_fol_perc_tkinter.py                                             
 * line_fol_reinf_tkinter .py                                           
-* pop_corn_tkinter.py                                                  
+                                             
 
 The 'img' directory contains some images and utilities to convert images to matrix format.
 
