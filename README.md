@@ -11,7 +11,7 @@ The following files contain applications that you can execute after downloading 
 
 The 'img' directory contains some images and utilities to convert images to matrix format.
 
-The files in the 'py' subdirectory cannot be executed in MicroPython.
+The files in the 'py' subdirectory can not be executed in MicroPython.
 The files in the 'upy' subdirectory cannot be executed on a computer.
 
 To collaborate, please fork the repository, create a new branch for your changes, and submit a pull request. Contributions, issues, and feature requests are welcome.
