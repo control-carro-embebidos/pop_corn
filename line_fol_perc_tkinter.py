@@ -4,7 +4,7 @@ from pop_corn.matrix import Matrix, Vec
 from pop_corn.scene import Scene
 from pop_corn.mainscene import MainScene
 from pop_corn.disc import Disc
-from pop_corn.py.canvas_Tkinter import Canvas_Tkinter
+from pop_corn.py.canvas_tkinter import Canvas_Tkinter
 import tkinter as tk
 
 
