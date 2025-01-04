@@ -1,10 +1,12 @@
+from pop_corn.matrix import Matrix, Vec
+from pop_corn.mainscene import MainScene
+from pop_corn.disc import Disc
+from pop_corn.py.context_tkinter import Context_Tkinter as Context
 
 
 
 def control1( disc,t):
         global cont_train,train
-      #if repeat:
-#conntrol
         #print(disc.things['sensors'])
         sensors_d=disc.things['sensors']
         transf_dad=disc.get_transf()
@@ -12,17 +14,12 @@ def control1( disc,t):
         n_2=n//2
         sensors_pos = []
         for disc_i in sensors_d:
-            
             items=(disc_i.get_pos()@transf_dad@Matrix(2,2,[0,1,1,0])).tolist() # the 2x2 matrix interchange x by y beacuse in a matrix it is interchange ¿BUG?
-            
             #print('items',items)
             for item in items:
                 sensors_pos.append(item)
         sensors_pos=Matrix(n,2,sensors_pos)
         floor_colors = disc.scene.get_background_at(sensors_pos)
-        #print('disc',disc.get_pos())
- #   if train:
-        #master.after(30,train_control)
         acc_prod=0
         acc_vals=0
         for i,f_color in enumerate(floor_colors):
@@ -39,15 +36,6 @@ def control1( disc,t):
         v_d=5 - k_giro*(index_maxval/n_2)
         motors_vel= Matrix(1,2,[v_i,v_d])
 
-
-#        perceptron.train(floor_colors*(1/255), motors_vel*(1/5))
-#     else:
-#         master.after(10,train_control)
-#         prediction=perceptron.predict(floor_colors*(1/255))*5
-#         car.v_i = prediction[0,0]
-#         car.v_d = prediction[0,1]
-#         #print('predic', prediction)
-#Cinnematicadirecta
         r=1#wheel radio
         b=1
         y=0
@@ -57,27 +45,15 @@ def control1( disc,t):
         disc.add_angle(omega_robot)
         disc.add_pos(desp)
 
-
-
-
 if __name__ == "__main__":
 
-    from pop_corn.matrix import Matrix, Vec
-    from pop_corn.scene import Scene
-    from pop_corn.mainscene import MainScene
-    from pop_corn.disc import Disc
-    from pop_corn.py.canvas_tkinter import Canvas_Tkinter
-    import tkinter as tk
+    t_anim = 50
 
-    master = tk.Tk()
+    ctx=Context()
     scene = MainScene(data_grayscale=Matrix.load_file('img/UD_@8_540_483.pgm'))#bg='img/UD_@8.xbm', foreground="white", background="black")
     disc0 = Disc(scene)
     disc0.set_pos(5,0)
-    #scene.add_disc(disc)
-    
-    
-    t_anim = 50
-    
+   
     disc1 = Disc(scene)
     disc1.r=10
     sensors_ini_pos=Matrix(5,2,[
@@ -100,17 +76,12 @@ if __name__ == "__main__":
     disc1.set_pos(10,-100)
     disc1.set_vel(Vec(0,5))
 
-    canvas = Canvas_Tkinter(scene, tk_master=master)
-    scene.subscribe_canvas(canvas)
+    canvas = ctx.canvas(scene)
 
     def anim_loop():    
-        master.after(t_anim,anim_loop)
+        ctx.after_ms(t_anim,anim_loop)
         scene.refresh()
 
   
     anim_loop() 
-    master.mainloop()
-    
-    
-
-
+    ctx.mainloop()

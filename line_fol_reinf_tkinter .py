@@ -1,14 +1,10 @@
-
-
-
-from pop_corn.reinforcement import Reinforcement
-
 from pop_corn.matrix import Matrix, Vec
-from pop_corn.scene import Scene
 from pop_corn.mainscene import MainScene
 from pop_corn.disc import Disc
-from pop_corn.py.canvas_tkinter import Canvas_Tkinter
-import tkinter as tk
+#from pop_corn.py.canvas_tkinter import Canvas_Tkinter
+#import tkinter as tk
+from pop_corn.py.context_tkinter import Context_Tkinter as Context
+from pop_corn.reinforcement import Reinforcement
 
 
 def eval_in(floor_colors):
@@ -85,9 +81,8 @@ def control1( disc,t):
 
 if __name__ == "__main__":
 
-
-
-
+    t_anim = 50
+    
     train = True
     print('train',train)
     cont_train = 0
@@ -111,15 +106,10 @@ if __name__ == "__main__":
     print('list_outs',list_outs)
     reinforcement=Reinforcement(sensors_ini_pos.m,2,list_outs,lambda in_,out_:10000*eval_in(in_))#-(out_[0]*out_[1]))
 
-
-    master = tk.Tk()
+    ctx=Context()
     scene = MainScene(data_grayscale=Matrix.load_file('img/UD_@8_540_483.pgm'))#bg='img/UD_@8.xbm', foreground="white", background="black")
     disc0 = Disc(scene)
-    disc0.set_pos(5,0)
-    #scene.add_disc(disc)
-    
-    
-    t_anim = 50
+    disc0.set_pos(5,0)    
     
     disc1 = Disc(scene)
     disc1.r=10
@@ -136,15 +126,14 @@ if __name__ == "__main__":
     disc1.set_pos(10,-100)
     disc1.set_vel(Vec(0,5))
 
-    canvas = Canvas_Tkinter(scene, tk_master=master)
-    scene.subscribe_canvas(canvas)
+    canvas = ctx.canvas(scene)
 
     def anim_loop():    
-        master.after(t_anim,anim_loop)
+        ctx.after_ms(t_anim,anim_loop)
         scene.refresh()
 
   
     anim_loop() 
-    master.mainloop()
+    ctx.mainloop()
     
     
