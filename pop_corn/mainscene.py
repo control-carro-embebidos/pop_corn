@@ -57,14 +57,15 @@ class MainScene(Scene):
 
     @staticmethod
     def magnetic(disc):
-            dx=(disc.get_pos()[0]%disc.d_magne)-disc.d_magne/2
-            dy=(disc.get_pos()[1]%disc.d_magne)-disc.d_magne/2
-            dif=Vec(dx,dy)#Matrix(1,3,[dx,dy,1])
-            dist=dif.norm()
-            if dist==0:
-                dist=disc.d_magne/1000
-            f_mag=(disc.k_magne/dist**3)*dif
-            return f_mag
+#             dx=(disc.get_pos()[0]%disc.d_magne)-disc.d_magne/2
+#             dy=(disc.get_pos()[1]%disc.d_magne)-disc.d_magne/2
+#             dif=Vec(dx,dy)#Matrix(1,3,[dx,dy,1])
+#             dist=dif.norm()
+#             if dist==0:
+#                 dist=disc.d_magne/1000
+#             f_mag=(disc.k_magne/dist**3)*dif
+#             return f_mag
+        return Vec(0,0)
 
 
     def forces(self):
