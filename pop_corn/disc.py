@@ -112,30 +112,10 @@ class Disc(Scene):
         #return pos,vel
 
     def refresh(self,t):
-        
-   
-
-
-    #def refresh(self):
-
+        self.calc_forces()        
         self.control(self,t)
-
-        #self.vel = vel   
-        #self.set_pos( pos)
         self.clear_force()
-        #return (self.get_pos() - self.dim) | (self.get_pos() + self.dim)
-
-
-        self.forces()
-        
-        
         for disc in self.discs:
             #print('.',end='')
             disc.refresh(t)            
-#         for canvas in self.subscribers_canvas:
-#             #print('#',end='')
-#             canvas.delete("disc")
-#             for disc in self.discs:
-#                 #canvas.delete(disc.tag_disc)
-#                 disc.draw(canvas)
     
