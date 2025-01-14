@@ -1,9 +1,4 @@
-
-#from canvas_tkinter import Canvas_Tkinter
 from pop_corn.upy_html.canvas_upy_html import Canvas_upy_html
-#from pop_corn.upy_html.in_upy_html import In_upy_html
-#from pop_corn.upy_html.out_upy_html import Out_upy_html
-#from pop_corn.upy_html.out_upy_html import server
 
 
 import network
@@ -13,19 +8,6 @@ import json
 import time
 
 
-
-# jsonData ="""[
-#       {
-#         "type": "checkboxRow",
-#         "label": "Row 1",
-#         "count": 3
-#       },
-#       {
-#         "type": "canvas",
-#         "canvasWidth": 100,
-#         "canvasHeight": 100
-#       },
-#     ]"""
 
 
 
@@ -39,24 +21,14 @@ import socket
 #import time
 
 
-# Import the API method from the separate file
-#from api import api
 
 class Context_upy_html:
     def __init__(self,name_net="Ejemplo",psw_net="12345678",ap=False):
-        #self.master=tk.Tk()
-        #self.mainloop=self.master.mainloop
-        #self.after_ms=self.master.after
         self.name_net=name_net
         self.psw_net=psw_net
         self.ap=ap
-        #self.after_index=0
-        #self.after_dic={}
         self.after_list=[]
         self.gadgets=[
-#       {
-#         "type": "timer",
-#       },
       {
         "type": "checkboxRow",
         "count": 3
@@ -101,7 +73,6 @@ class Context_upy_html:
   
 class CheckboxRow {
     constructor( numCheckboxes) {
-        //this.container = document.getElementById(containerId);
         this.numCheckboxes = numCheckboxes;
         this.checkboxes = [];
         this.row = document.createElement('div');
@@ -147,8 +118,6 @@ class CheckboxRow {
             this.checkboxes.push(checkbox);
         }
 
-        // Append the entire row to the main container
-        //this.container.appendChild(row);
     }
     
     get_obj(){
@@ -225,7 +194,6 @@ class CheckboxRow {
         canvas.height = item.canvasHeight;
         rowContainer.appendChild(canvas);
         document.body.appendChild(rowContainer);
-        //gadgets.push(canvas);
 
         const ctx = canvas.getContext('2d');
         
@@ -246,52 +214,12 @@ class CheckboxRow {
     
     const intervalID = setInterval(sendJson, 300);
 
-
-
-
   </script>
 </body>
 </html>
 
 """
 
-#           shapes = [
-#             {
-#               "type": "rectangle",
-#               "x": 50,
-#               "y": 50,
-#               "width": 200,
-#               "height": 100,
-#               "color": "red"
-#             },
-#             {
-#               "type": "circle",
-#               "x": 400,
-#               "y": 300,
-#               "radius": 50,
-#               "color": "blue"
-#             }
-#           ]
-
-
-
-
-#       shapes.forEach(shape => {
-#         if (shape.type === 'rectangle') {
-#           ctx.fillStyle = shape.color;
-#           ctx.fillRect(shape.x, shape.y, shape.width, shape.height);
-#         } else if (shape.type === 'circle') {
-#           ctx.fillStyle = shape.color;
-#           ctx.beginPath();
-#           ctx.arc(shape.x, shape.y, shape.radius, 0, Math.PI * 2);
-#           ctx.fill();
-#         } else if (shape.type === 'text') {
-#           ctx.fillStyle = shape.color;
-#           ctx.font = shape.font;
-#           ctx.fillText(shape.content, shape.x, shape.y);
-#         }
-#       });
-# 
 
     def _api(self, request_str):
 
@@ -406,14 +334,6 @@ class CheckboxRow {
         client.close()
         return
 
-    # Start the server and listen for connections
-    # def mainloop(name,psw,ap=False):
-    #     s = start_server(name=name,psw=psw,ap=ap)
-    #     while True:
-    #         conn, addr = s.accept()
-    #         print(f'Got a connection from {addr}')
-    #         handle_request(conn)
-
     def add_gadget(self,gadget_dic):
         self.gadgets.append(gadget_dic)
         return len(self.gadgets)-1
@@ -432,21 +352,6 @@ class CheckboxRow {
     def after_ms(self,t_ms,callback):
         self.after_list.append((time.ticks_add(time.ticks_ms(), t_ms),callback))
         
-#        tim = Timer()
-#        tim.init(period=t_ms, mode=Timer.ONE_SHOT, callback=callback)
-        
-#         self.after_dic[self.after_index]=callback
-#         after_ms_dic={
-#                 "gadget_index":0,
-#                 "t_ms": t_ms,
-#                 "after_index": self.after_index,
-#             }
-#         self.context.add_shape(after_ms_dic)
-#         self.after_index+=1
-        
-        
-         
-
 #     def in_bits(self,num_bits,**props):
 #         return In_upy_html(num_bits,**props)
 #         
