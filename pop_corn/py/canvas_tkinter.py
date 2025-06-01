@@ -13,7 +13,7 @@ class Canvas_Tkinter:
         m,n=props['height'],props['width']
         if 'tk_master' not in props: 
             props['tk_master'] = tk.Tk()
-        self.canvas = tk.Canvas(props['tk_master'],height=m,width=n,bg='blue')#, **subset)
+        self.canvas = tk.Canvas(props['tk_master'],height=m,width=n,bg='white')#, **subset)
         self.canvas.pack()
 
         if 'transf' not in props:
@@ -24,22 +24,23 @@ class Canvas_Tkinter:
                                 n/2,m/2,1],has_tail=True)
             props['transf']=transf
         self.transf=props['transf']
-        
-        xy=Matrix(m*n,2,
-                  [k
-                              for i in range(m)
-                              for j in range(n)
-                              for k in (i,j)])
-#                   [(lambda k:i if k==0 else j if k==1 else 0)(k)
-#                               for i in range(m)
-#                               for j in range(n)
-#                               for k in range(3)])
-        xy=xy@(self.transf.inv())
-        xbm_image=self.xmb_format(Matrix(m,n,self.scene.get_background_at(xy)))
-        bitmap = tk.BitmapImage(data=xbm_image, foreground="white", background="black")
-        #bitmap = tk.BitmapImage(data=xbm_image, background="white", foreground="black")
-        self.canvas.create_image(0, 0, anchor=tk.NW, image=bitmap)
-        self.canvas.image = bitmap
+        #print('tkinter_init',self.transf)
+        if self.scene.get_background_at != None:
+            xy=Matrix(m*n,2,
+                      [k
+                                  for i in range(m)
+                                  for j in range(n)
+                                  for k in (i,j)])
+    #                   [(lambda k:i if k==0 else j if k==1 else 0)(k)
+    #                               for i in range(m)
+    #                               for j in range(n)
+    #                               for k in range(3)])
+            xy=xy@(self.transf.inv())
+            xbm_image=self.xmb_format(Matrix(m,n,self.scene.get_background_at(xy)))
+            bitmap = tk.BitmapImage(data=xbm_image, foreground="white", background="black")
+            #bitmap = tk.BitmapImage(data=xbm_image, background="white", foreground="black")
+            self.canvas.create_image(0, 0, anchor=tk.NW, image=bitmap)
+            self.canvas.image = bitmap
         self.debug_id=self.canvas.create_text(n/2,10,text='0')
         
     def xmb_format(self,matrix, threshold=128):
@@ -82,6 +83,7 @@ class Canvas_Tkinter:
         return self.canvas.create_line(vertex@self.transf,**options)
     
     def	poly(self, vertex,**options)->int:
+        #print('tkinter_poly',type(vertex),type(self.transf))
         return self.canvas.create_polygon(vertex@self.transf,**options)
     
     #def coords(self, id_shape, list_vertex):
