@@ -20,7 +20,10 @@ class MainScene(Scene):
             'gray':255,
             'transf':None#self.get_bg_transf()
         }|props
-        self.get_background_at=self.fun_bg
+        if self._bg['data_grayscale']==None:
+            self.get_background_at=None
+        else:
+            self.get_background_at=self.fun_bg
         super().__init__(**props)
         self.forces += [collision, viscosity]
         
@@ -109,5 +112,5 @@ class MainScene(Scene):
             for disc in self.discs:
                 #canvas.delete(disc.tag_disc)
                 disc.draw(canvas)
-         
+        #self.calc_updates() 
     

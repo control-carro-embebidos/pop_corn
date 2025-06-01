@@ -7,6 +7,7 @@ from math import cos, sin, sqrt, atan2
 class Disc(Scene):
     def __init__(self,scene):#,control=None):
         super().__init__()
+        #self.name="Disc"
         self.scene=scene
         scene.add_disc(self)
         self.color='black'
@@ -29,6 +30,7 @@ class Disc(Scene):
         self.things={}
         r=self.r
         self.poligons=[]
+        
 
     def get_angle(self):
         return self._angle
@@ -42,7 +44,7 @@ class Disc(Scene):
     def get_speed(self):
         return self._vel
     
-    def set_speed(selg,vel):
+    def set_speed(self,vel):
         self._vel=vel
 
     def get_vel(self):
@@ -87,10 +89,11 @@ class Disc(Scene):
        dim=Vec(self.r,self.r)
        vertex=((self.get_pos()@transf_dad - dim) | (self.get_pos()@transf_dad + dim))
        #print('Disc draw vertex',vertex)
+       transf=transf_dad@self.get_transf()
        canvas.oval(vertex, fill=self.color, tag=tag)
        for poligon in self.poligons:
-           canvas.poly(poligon,tag=tag)
-       transf=transf_dad@self.get_transf()
+           #print("disc draw",poligon)#["points"],type(poligon["points"]))
+           canvas.poly(poligon["points"]@transf,**({"tag":tag}|poligon["options"]))
 
        for disc in self.discs:
             #canvas.delete(disc.tag_disc)

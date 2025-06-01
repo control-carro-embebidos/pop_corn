@@ -6,11 +6,15 @@ class Scene:
         self.props=props
         self.parent=None
         self.forces=[]
+        #self.updates=[]
     
    
     def add_disc(self,disc):
             self.discs.append(disc)
             #print(self.discs)
+            
+#     def scan_names(self,distance)
+#         for disc
 
 #    @staticmethod
 #    def magnetic(disc):
