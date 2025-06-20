@@ -21,8 +21,9 @@ class Disc(Scene):
         self.k_elast=0.1 
         self.k_frict=0.01
         self.f=Vec(0,0)#Matrix(1,3,[0,0,1])
-        self.k_magne =1
-        self.d_magne =self.r *5
+        self.k_mag =0
+        self.k_ferromag = 0 
+        #self.d_magne =self.r *5
         self.tag_disc='disc'
 #         if control==None:
 #             control=self.default_control
