@@ -3,7 +3,8 @@ from pop_corn.mainscene import MainScene
 from pop_corn.disc import Disc
 from pop_corn.pub_sub import PubSub
 from pop_corn.py.context_tkinter import Context_Tkinter as Context
-from wall_e import Wall_e
+from wall_e.wall_e import Wall_e
+from wall_e.garbage import Garbage
 
 
 class Host(PubSub):
@@ -44,6 +45,8 @@ if __name__ == "__main__":
     ctx=Context()
     scene = MainScene()#bg='img/UD_@8.xbm', foreground="white", background="black")
     disc0 = Disc(scene)
+    Garbage(scene,"red",100,-80)
+    Garbage(scene,"blue",100,100)
     
     wall_es=[]
     for i in range(zones_num[0]):
