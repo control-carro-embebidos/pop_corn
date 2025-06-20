@@ -21,8 +21,9 @@ class Disc(Scene):
         self.k_elast=0.1 
         self.k_frict=0.01
         self.f=Vec(0,0)#Matrix(1,3,[0,0,1])
-        self.k_magne =1
-        self.d_magne =self.r *5
+        self.k_mag =0
+        self.k_ferromag = 0 
+        #self.d_magne =self.r *5
         self.tag_disc='disc'
 #         if control==None:
 #             control=self.default_control
@@ -31,6 +32,11 @@ class Disc(Scene):
         r=self.r
         self.poligons=[]
         
+    def get_f_static(self):
+        return 0
+
+    def get_f_dynamic(self):
+        return 0
 
     def get_angle(self):
         return self._angle
@@ -109,8 +115,9 @@ class Disc(Scene):
     
     @staticmethod
     def default_control(disc,t):
-        disc.add_vel(disc.f*(1/disc.m)*t)
-        disc.add_pos(disc.get_vel()*t + disc.f*(t**2/disc.m/2))
+        if disc.f.norm()>disc.get_f_static():
+            disc.add_vel(disc.f*(1/disc.m)*t)
+            disc.add_pos(disc.get_vel()*t + disc.f*(t**2/disc.m/2))
         pass
         #return pos,vel
 
