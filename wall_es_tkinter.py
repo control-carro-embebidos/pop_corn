@@ -1,6 +1,7 @@
 from pop_corn.matrix import Matrix, Vec
 from pop_corn.mainscene import MainScene
 from pop_corn.disc import Disc
+from pop_corn.stick import Stick
 from pop_corn.pub_sub import PubSub
 from pop_corn.py.context_tkinter import Context_Tkinter as Context
 from wall_e.wall_e import Wall_e
@@ -47,7 +48,6 @@ if __name__ == "__main__":
     disc0 = Disc(scene)
     Garbage(scene,"red",100,-80)
     Garbage(scene,"blue",100,100)
-    
     wall_es=[]
     for i in range(zones_num[0]):
         list_tmp=[]
@@ -59,10 +59,12 @@ if __name__ == "__main__":
             disc_tmp.set_pos(int((i-zones_num[0]/2 +.5)*zones_size[0]),int((j-zones_num[1]/2+0.5)*zones_size[1]))
             #disc1.set_vel(Vec(5,0.5))
             #host.subscribe(disc_tmp.name+" All_Wall_es", disc_tmp, "Command")
-            list_tmp.append(list_tmp)
+            list_tmp.append(disc_tmp)
             #host.publish(disc_tmp.name, {"steering_angle_deg":20*i+5*j,"speed_cm_s":15, "duration_seg":5})
             
         wall_es.append(list_tmp)
+    stick1=Stick(scene,wall_es[0][0])
+    stick1.set_pos(-100,-100)
     
     #host.publish("All_Wall_es", {"steering_angle_deg":0,"speed_cm_s":20, "duration_seg":2})
         
