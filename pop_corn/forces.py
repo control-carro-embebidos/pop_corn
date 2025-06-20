@@ -1,3 +1,6 @@
+from pop_corn.stick import Stick
+
+
 def collision(scene):
     self=scene
     n=len(self.discs)
@@ -6,16 +9,17 @@ def collision(scene):
             disc_i = self.discs[i] 
             disc_j = self.discs[j]
             #if disc_i.isparent(disc_j) or disk_j()
-            dist=(disc_i.get_pos() - disc_j.get_pos()).norm()
-            if dist<(disc_i.r+disc_j.r) :
-                if dist<(disc_i.r+disc_j.r)/100:
-                    dist=(disc_i.r+disc_j.r)/100
-                f_dir_ji=(disc_i.get_pos() - disc_j.get_pos())*(1/dist)
-                dist=min(dist,disc_i.r,disc_j.r)
-                k_elast=(disc_i.k_elast + disc_j.k_elast)/2
-                f_ji=k_elast*dist*f_dir_ji
-                disc_i.add_force(f_ji) #colition
-                disc_j.add_force((-1)*f_ji) #colition
+            disc_i.forces_two_disc_collision(disc_j)
+#             dist=(disc_i.get_pos() - disc_j.get_pos()).norm()
+#             if dist<(disc_i.r+disc_j.r) :
+#                 if dist<(disc_i.r+disc_j.r)/100:
+#                     dist=(disc_i.r+disc_j.r)/100
+#                 f_dir_ji=(disc_i.get_pos() - disc_j.get_pos())*(1/dist)
+#                 dist=min(dist,disc_i.r,disc_j.r)
+#                 k_elast=(disc_i.k_elast + disc_j.k_elast)/2
+#                 f_ji=k_elast*dist*f_dir_ji
+#                 disc_i.add_force(f_ji) #colition
+#                 disc_j.add_force((-1)*f_ji) #colition
 
 def viscosity(scene):
 
@@ -24,8 +28,8 @@ def viscosity(scene):
         #disc.add_force(f_mag) #Magnetic Force floor
         
         #Parent attractor
-
-        disc.add_force(-disc.k_frict*disc.get_vel())  # friction
+        disc.forces_one_disc_viscosity()
+        #disc.add_force(-disc.k_frict*disc.get_vel())  # friction
 
 
 def magnetic(scene):
@@ -37,7 +41,7 @@ def magnetic(scene):
        for j in range(i): #itera desde el primer disco (índice 0) hasta el disco anterior al disco i actual (índice i-1).
             disc_i = self.discs[i] 
             disc_j = self.discs[j]
-            dist=(disc_i.get_pos() - disc_j.get_pos()).norm()+ disc_j.r+disc_i.r
+            dist=(disc_i.get_pos() - disc_j.get_pos()).norm()+ disc_j.r+disc_i.r# r es sumado para evitar div cercanas a cero
             f_dir_ji=(disc_i.get_pos() - disc_j.get_pos())*(1/dist)
     
             #1er caso: 2 son magneticos
@@ -56,5 +60,10 @@ def magnetic(scene):
             pass
             
             #F= uo*N*I*A/(2*(r)**2)
-              
+
+def stick_force(scene):
+    for disc in scene.discs:
+        if isinstance(disc,Stick):
+            disc.stick_force()
+
           

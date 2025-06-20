@@ -90,7 +90,7 @@ class Disc(Scene):
     def clear_force(self):
         self.f=Vec(0,0)#Matrix(1,3,[0,0,1])
 
-    def draw(self, canvas,transf_dad=Matrix.id(3),tag='disc'):
+    def draw(self, canvas,transf_dad=Matrix.id(3),tag='disc refreshable'):
        #print('*',end='')
        dim=Vec(self.r,self.r)
        vertex=((self.get_pos()@transf_dad - dim) | (self.get_pos()@transf_dad + dim))
@@ -129,3 +129,17 @@ class Disc(Scene):
             #print('.',end='')
             disc.refresh(t)            
     
+    def forces_two_disc_collision(disc_i,disc_j):
+            dist=(disc_i.get_pos() - disc_j.get_pos()).norm()
+            if dist<(disc_i.r+disc_j.r) :
+                if dist<(disc_i.r+disc_j.r)/100:
+                    dist=(disc_i.r+disc_j.r)/100
+                f_dir_ji=(disc_i.get_pos() - disc_j.get_pos())*(1/dist)
+                dist=min(dist,disc_i.r,disc_j.r)
+                k_elast=(disc_i.k_elast + disc_j.k_elast)/2
+                f_ji=k_elast*dist*f_dir_ji
+                disc_i.add_force(f_ji) #colition
+                disc_j.add_force((-1)*f_ji) #colition
+       
+    def forces_one_disc_viscosity(disc):
+       disc.add_force(-disc.k_frict*disc.get_vel())

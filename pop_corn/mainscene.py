@@ -1,6 +1,6 @@
 from pop_corn.scene import Scene
 from pop_corn.matrix import Matrix, Vec
-from pop_corn.forces import collision, viscosity,magnetic
+from pop_corn.forces import collision, viscosity,magnetic,stick_force
 
 
 class MainScene(Scene):
@@ -25,7 +25,7 @@ class MainScene(Scene):
         else:
             self.get_background_at=self.fun_bg
         super().__init__(**props)
-        self.forces += [collision, viscosity,magnetic]
+        self.forces += [collision, viscosity,magnetic,stick_force]
         
     def get_bg_transf(self):
        x0,y0=self._bg['xy0']
@@ -108,7 +108,7 @@ class MainScene(Scene):
             disc.refresh(1)            
         for canvas in self.subscribers_canvas:
             #print('#',end='')
-            canvas.delete("disc")
+            canvas.delete("refreshable")
             for disc in self.discs:
                 #canvas.delete(disc.tag_disc)
                 disc.draw(canvas)
