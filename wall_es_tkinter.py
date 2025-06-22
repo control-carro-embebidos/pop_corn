@@ -19,11 +19,11 @@ class Host(PubSub):
         for i in range(self.zones_num[0]):
             for j in range(self.zones_num[1]):
                 name=f"Walle_{i}_{j}/wheelVels"
-                self.publish(name, {"steering_angle_deg":20*i+5*j,"speed_cm_s":2, "duration_seg":30})
+                #self.publish(name, {"steering_angle_deg":20*i+5*j,"speed_cm_s":2, "duration_seg":30})
         #self.publish("All_Wall_es", {"steering_angle_deg":0,"speed_cm_s":20, "duration_seg":2})      
         self.publish("All_Wall_es/on_move", #{"value": "10"})
         {#"arm_ds_deg**3":[[3,10,10,10],[5,12,10,10],[10,14,10,10],[15,20,10,10]],
-                       "rel_posit_ds_frontmm_rightmm_angledeg":[[3,10,10,0],[3,12,10,0],[3,14,10,45],[3,20,10,45]],
+                       "rel_posit_ds_frontmm_rightmm_angledeg":[[8,10,10,0],[8,12,-10,0],[8,14,-10,45],[3,20,-10,45]],
          #              "catch_ds_byte":[[0,0],[10,255],[15,0]]
             })
         self.publish("Walle_0_0/on_move", #{"value": "10"})
@@ -40,7 +40,8 @@ if __name__ == "__main__":
     t_anim = 100 #ms
     zones_num=(1,2)
     zones_size=(250,250)
-    debug=False#True
+    #debug=True#False#
+    debug=False#True#
     
     host = Host(zones_num,debug)
     ctx=Context()
