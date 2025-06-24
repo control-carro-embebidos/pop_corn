@@ -1,6 +1,6 @@
 from pop_corn.scene import Scene
 from pop_corn.matrix import Matrix, Vec
-from pop_corn.forces import collision, viscosity
+from pop_corn.forces import collision, viscosity,magnetic
 
 
 class MainScene(Scene):
@@ -25,7 +25,7 @@ class MainScene(Scene):
         else:
             self.get_background_at=self.fun_bg
         super().__init__(**props)
-        self.forces += [collision, viscosity, magnetic]
+        self.forces += [collision, viscosity,magnetic]
         
     def get_bg_transf(self):
        x0,y0=self._bg['xy0']
